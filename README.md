@@ -1,6 +1,7 @@
 # Shiftable_electricity
-Code for paper: Using Temperature Sensitivity to Estimate Shiftable Electricity Demand
-Co-authors: Michael Roberts, Eleanor Yuan, James Jones, Matthias Fripp
+
+- Code for paper: Using Temperature Sensitivity to Estimate Shiftable Electricity Demand
+- Co-authors: Michael Roberts, Sisi Zhang, Eleanor Yuan, James Jones, Matthias Fripp
 
 ----------------------------------------
 
@@ -86,7 +87,7 @@ Function code:
 - function_ba.R: functions for 0. data preparation 
 - functions.R: all the functions used in this work
 - spec_chart_function.R: 
-  # Authors: Ariel Ortiz-Bobea (ao332@cornell.edu).
-  # Version: March 10, 2020
+  Authors: Ariel Ortiz-Bobea (ao332@cornell.edu).
+  Version: March 10, 2020
 
 
