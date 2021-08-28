@@ -2,21 +2,23 @@
 Code for paper: Using Temperature Sensitivity to Estimate Shiftable Electricity Demand
 Co-authors: Michael Roberts, Eleanor Yuan, James Jones, Matthias Fripp
 
+----------------------------------------
+
 0: Preparing the data (from James Jones previous work):
 0.1. Download data (0.1. Download.R)
-  1A: Download NARR
-  1B: Download EIA 930
-  1C: Download BA shapefile
-  1D: Download population grid
-  1E: Download EIA Meta - BA name match file
+  - 1A: Download NARR
+  - 1B: Download EIA 930
+  - 1C: Download BA shapefile
+  - 1D: Download population grid
+  - 1E: Download EIA Meta - BA name match file
   
 0.2. Clean Data
-  2A: Reproject BA shapefile to LCC to match NARR (0.2. reprojSF.R)
-  2B: Match EIA ids to BASF ids (0.2. matchIDs.R)
-  2C: Consolidate BAs in each interconnection (0.2. mergeBAs.R)
+  - 2A: Reproject BA shapefile to LCC to match NARR (0.2. reprojSF.R)
+  - 2B: Match EIA ids to BASF ids (0.2. matchIDs.R)
+  - 2C: Consolidate BAs in each interconnection (0.2. mergeBAs.R)
   
 0.3. Calculate Weather
-  3A: Calculate pop weighted weather for each consolidated BA (0.3. calcBAWDD.R)
+  - 3A: Calculate pop weighted weather for each consolidated BA (0.3. calcBAWDD.R)
   
 --------------------------------------
 
