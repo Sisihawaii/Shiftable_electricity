@@ -9,6 +9,7 @@
 
 # update April 23: use cleandata rerun for east and west IC
 # update Aug 3: use new opt splines from cleandata for all the models rerun results (with climate interaction)
+# update Aug 30: relabel region names from BA to letters
 
 rm(list = ls())
 
@@ -217,6 +218,7 @@ pop.dt <- readRDS("popweight.RDS")
 
 # pop_e15 <- pop.dt[sf == 'e.15']
 pop_e15 <- pop.dt[sf == 'w.15']
+
 climcell_ba <- clim[pop_e15, on = 'cell']
 
 ## calc pop weighted avg for cdh/hdh
@@ -319,6 +321,12 @@ sd_range_h <- data.frame(sd_range_h)
 colnames(sd_range_c) <- c("l2", "h2")
 colnames(sd_range_h) <- c("l2", "h2")
 
+# saveRDS(sd_range_c, "Regvis/East15ba/sd_range_c.RDS")
+# saveRDS(sd_range_h, "Regvis/East15ba/sd_range_h.RDS")
+
+saveRDS(sd_range_c, "Regvis/West15ba/sd_range_c.RDS")
+saveRDS(sd_range_h, "Regvis/West15ba/sd_range_h.RDS")
+
 ###########################################
 ######### applying schart function ########
 ###########################################
@@ -369,7 +377,12 @@ data1$h1 <- est + a*se
 
 ### adjust data format with clim interaction cdh/hdh range as se
 # beta_e15 <- readRDS("Regvis/East15ba/coef_climdh_range.RDS")
+# sd_range_c <- readRDS("Regvis/East15ba/sd_range_c.RDS")
+# sd_range_h <- readRDS("Regvis/East15ba/sd_range_h.RDS")
+
 beta_e15 <- readRDS("Regvis/West15ba/coef_climdh_range.RDS")
+sd_range_c <- readRDS("Regvis/West15ba/sd_range_c.RDS")
+sd_range_h <- readRDS("Regvis/West15ba/sd_range_h.RDS")
 
 data2 <- beta_e15[,2:4]
 data2[,4:7] <- data_ba[, 3:6]
@@ -392,8 +405,6 @@ for (i in 1:15){
 data_all <- do.call(rbind, data_list)
 rownames(data_all) <- 1:60
 
-# index.ci <- match(c("l1","h1"), names(data_all))
-
 # combine sd range as l2 h2
 data_all$l2 <- data_all$l1
 data_all$h2 <- data_all$l2
@@ -404,7 +415,6 @@ for (i in 1:15){
   data_all$l2[4*i] <- sd_range_h$l2[i]
   data_all$h2[4*i] <- sd_range_h$h2[i]
 }
-
 
 index.ci <- match(c("l1","h1","l2","h2"), names(data_all))
 
@@ -436,35 +446,41 @@ for (i in 1:15){
 }
 
 #=======================================#
-# apply schart for e15 BAs
-# schart(df_c, leftmargin = 5, heights = c(4,1), lwd.symbol = 2, pch.est = 21, lwd.ref = 1, 
-#        adj = c(0.5,0.5), offset = c(3, 2))
+# apply schart for e15/w15 BAs
 
+# Match regions to letter orders
+l <- readRDS("letters.RDS")
+# setkey(l, ex)   # east
 # ylim <- c(-0.15,0.2)   # east
-ylim <- c(-0.3,0.3)
+
+setkey(l, wx)   # west
+ylim <- c(-0.3,0.3)   # west
+
 schart(data_all, highlight = c(2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60),
        leftmargin = 5, heights = c(4,1), n = 4, ylim = ylim, index.ci = index.ci, axes = F)
 abline(v = c(5,10,15,20,25,30,35,40,45,50,55,60,65,70))
 # y <- 0.2   # east
 y <- 0.3   # west
-text(2,y,"BA1")
-text(7.5,y,"BA2")
-text(12.5,y,"BA3")
-text(17.5,y,"BA4")
-text(22.5,y,"BA5")
-text(27.5,y,"BA6")
-text(32.5,y,"BA7")
-text(37.5,y,"BA8")
-text(42.5,y,"BA9")
-text(47.5,y,"BA10")
-text(52.5,y,"BA11")
-text(57.5,y,"BA12")
-text(62.5,y,"BA13")
-text(67.5,y,"BA14")
-text(73,y,"BA15")
+
+text(2, y, paste0(l[1,1]))
+text(7.5, y, paste0(l[2,1]))
+text(12.5, y, paste0(l[3,1]))
+text(17.5, y, paste0(l[4,1]))
+text(22.5, y, paste0(l[5,1]))
+text(27.5, y, paste0(l[6,1]))
+text(32.5, y, paste0(l[7,1]))
+text(37.5, y, paste0(l[8,1]))
+text(42.5, y, paste0(l[9,1]))
+text(47.5, y, paste0(l[10,1]))
+text(52.5, y, paste0(l[11,1]))
+text(57.5, y, paste0(l[12,1]))
+text(62.5, y, paste0(l[13,1]))
+text(67.5, y, paste0(l[14,1]))
+text(73, y, paste0(l[15,1]))
 # add avg daily MWh in each region
 # y1 <- 0.19 # east
 y1 <- 0.27 # west
+
 text(2,y1, paste0(round(DD_avg[1,2]/1000), "GWh"), cex = 0.7)
 text(7.5,y1, paste0(round(DD_avg[2,2]/1000), "GWh"), cex = 0.7)
 text(12.5,y1, paste0(round(DD_avg[3,2]/1000), "GWh"), cex = 0.7)
